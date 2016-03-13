@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host">
+			<value>smtp.126.com</value>
+		</property>
+		<property name="password">
+			<value>lining.flame</value>
+		</property>
+		<property name="username">
+			<value>asklining</value>
+		</property>
+	</bean>
+
+	<bean id="mailMessage"
+		class="org.springframework.mail.SimpleMailMessage">
+		<property name="to">
+			<value>target@126.com</value>
+		</property>
+		<property name="from">
+			<value>source@126.com</value>
+		</property>
+		<property name="subject">
+			<value>标题</value>
+		</property>
+		<property name="text">
+			<value>正文</value>
+		</property>
+	</bean>
+
+
+</beans>

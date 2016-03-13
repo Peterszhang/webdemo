@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <!--  配置用于效验username字段的reqiredstring效验规则  -->
+    <validator type="requiredstring">
+        <param name="fieldName">username</param>
+        <message key="username.required" />
+    </validator>
+    <!--  配置用于效验password字段的reqiredstring效验规则  -->
+    <validator type="requiredstring">
+        <param name="fieldName">password</param>
+        <message key="password.required" />
+    </validator>
+    <!--  配置用于效验birthday字段的reqiredstring效验规则  -->
+    <validator type="requiredstring">
+        <param name="fieldName">birthday</param>
+        <message key="birthday.required" />
+    </validator>
+    <!--  配置用于效验username字段的stringlength效验规则  -->
+    <validator type="stringlength">
+        <param name="fieldName">username</param>
+        <param name="minLength">4</param>
+        <param name="maxLength">20</param>
+        <param name="trim">true</param>
+        <message key="username.stringlength" />
+    </validator>
+    <!--  配置用于效验password字段的stringlength效验规则  -->
+    <validator type="stringlength">
+        <param name="fieldName">password</param>
+        <param name="minLength">8</param>
+        <param name="maxLength">30</param>
+        <param name="trim">true</param>
+        <message key="password.stringlength" />
+    </validator> 
+    <!--  配置用于效验username字段的regex效验规则  -->
+    <validator type="regex">
+        <param name="fieldName">username</param>
+        <param name="expression"><![CDATA[(^\w*$)]]></param>
+        <param name="trim">true</param>
+        <message key="username.regex" />
+    </validator>
+    <!--  配置用于效验age字段的int效验规则  -->
+    <validator type="int">
+        <param name="fieldName">age</param>
+        <param name="min">1</param>
+        <param name="max">200</param>
+        <message key="age.int" />
+    </validator>
+    <!--  配置用于效验birthday字段的date效验规则  -->
+    <validator type="date">
+        <param name="fieldName">birthday</param>
+        <param name="min">1900-1-1</param>
+        <param name="max">2020-1-1</param>
+        <message key="birthday.date" />
+    </validator>
+</validators>

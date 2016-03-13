@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>class</title>
+<script type="text/javascript">
+var oStudent = new Object;
+oStudent.id = '01';			//  定义id属性
+oStudent.xm = '赵子龙';		//  定义xm属性
+oStudent.age = 16;			//  定义age属性
+oStudent.study = function() {
+    alert(this.xm + '开始学习');
+};
+oStudent.study(); 			 // 调用study方法
+
+function study()
+{
+    alert(this.xm + "开始学习");
+}
+function createStudent(id, xm, age)
+{
+    var oStudent = new Object;
+	oStudent.id = id;			//  定义id属性
+	oStudent.xm = xm;			//  定义xm属性
+	oStudent.age = age;			//  定义age属性
+     // 定义study方法
+	oStudent.study = study;
+    return oStudent;				//  返回oStudent对象
+}
+
+var oStudent1 = createStudent('02', '赵明', 12);
+var oStudent2 = createStudent('03', 'bill', 33);
+oStudent1.study();
+oStudent2.study();
+
+//  多个对象共享的study方法
+function study()
+{
+    alert(this.xm + "开始学习");
+}
+function Student(id, xm, age)
+{
+    this.id = id;
+    this.xm = xm;
+    this.age = age;
+    this.study = study;
+}
+var oStudent1 = new Student('10', 'Mike', 22);
+var oStudent2 = new Student('20', '比尔', 123);
+oStudent1.study();
+oStudent2.study();
+
+function Student1()
+{
+}
+Student1.prototype.id = '12';
+Student1.prototype.xm = 'bill';
+Student1.prototype.age = 20;
+Student1.prototype.study = function() {
+    alert(this.xm + '开始学习');
+};
+var oStudent1  = new Student1(); 
+oStudent1.study();
+
+String.prototype.lenB = function () {
+      return this.replace(/[^\x0-\xf]/g, "##").length;		//  将每一个中文替换成##
+}
+var s = "超人abc";
+alert(s.lenB());		//  输出7，如果使用length，则输出5
+
+alert(s.length);		//  输出7，如果使用length，则输出5
+
+</script>
+</head>
+  
+  <body>
+
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>Primitive Type</title>
+<script type="text/javascript">
+
+function testTypeof()
+{
+    var iValue = 20;
+    var sValue = "字符串";
+    alert(typeof iValue);
+    alert(typeof sValue);
+}
+function testUndefined()
+{
+    alert(typeof abc);
+    if(typeof abc == "undefined")
+        alert("abc未定义");
+    var name;
+    if(name == undefined)
+        alert("name未初始化");
+    if(typeof name == "undefined")
+        alert("name未初始化");   
+}
+
+function testBoolean()
+{
+    var bYes = true;
+    var bNo = false;
+    alert(bYes);
+    alert(bNo);
+    if(bYes == 1)
+        alert("bYes的值是true");
+    if(bNo == 0)
+        alert("bNo的值是false");
+}
+function testNumber()
+{
+    var iOctalNum = 0213;	//  八进制数
+    var iHexNum = 0xFE;	//  十六进制数
+    alert(iOctalNum);
+    alert(iHexNum);
+	var fNum1 = 23.0;
+	var fNum2 = 12.45;
+	alert(fNum1);
+	alert(fNum2);
+	var fNum = 4.3245e8;
+	alert(fNum);
+	fNum = 5.67e-8;
+	alert(fNum / 1000);
+	alert(Number.MAX_VALUE);
+	alert(Number.MIN_VALUE);
+	var iInfinity = Number.NEGATIVE_INFINITY;
+	if(isFinite(iInfinity));
+	    alert("infinity");
+	alert(isNaN(12));
+	alert(isNaN("0x12a"));
+}
+String.prototype.lenB = function () {
+      return this.replace(/[^\x0-\xf]/g, "##").length;
+}
+
+function testString()
+{
+    var sName1 = "未来";
+    var sName2 = '希望';
+    alert(sName1.length);
+     alert(sName1.lenB());
+
+
+}
+</script>
+</head>
+  
+  <body>
+<input type="button"  value="测试typeof" onclick="testTypeof()"/>
+<p/>
+<input type="button"  value="测试Undefined"  onclick="testUndefined()"/>
+<p/>
+<input type="button"  value="测试Boolean"  onclick="testBoolean()"/>
+<p/>
+<input type="button"  value="测试Number"  onclick="testNumber()"/>
+<p/>
+<input type="button"  value="测试String"  onclick="testString()"/>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="chapter19.entity.Customer" table="t_customers">
+		<id name="id" column="id" type="int">
+			<generator class="increment" />
+		</id>
+		<property name="name" column="name" type="string" />
+		 
+		<set  name="orders" cascade="save-update,delete" inverse="true" 
+			order-by="order_number asc" lazy="true">
+			<key column="customer_id" />
+			<one-to-many class="chapter19.entity.Order" />
+		</set>
+	</class>      
+</hibernate-mapping>

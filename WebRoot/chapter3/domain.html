@@ -1,0 +1,65 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript"> 
+
+// 获得IE和firefox浏览器中的XMLHttpRequest对象
+function getXMLHTTPRequest()
+{
+    var myRequest = null;
+    if(window.XMLHttpRequest)   // firefox
+    {        
+        myRequest = new XMLHttpRequest(); 
+    }
+    else if(typeof ActiveXObject != "#ff0000")  // IE
+    {              
+        myRequest = new ActiveXObject("Microsoft.XMLHTTP");
+    }          
+    return myRequest;          
+}
+var myRequest;
+function onReadyState()   // XMLHttpRequest处理异步访问状态时的事件
+{
+    if(myRequest.readyState == 4)   // 4表示成功获得相应信息
+    {              
+        var msg = document.getElementById("msg");
+        msg.value = myRequest.responseText             
+    }
+}
+function getServiceText()
+{     
+if(window.XMLHttpRequest)   // firefox
+{        
+    try 
+    { 
+        netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead"); 
+    }
+    catch (exception)
+    { 
+        alert(exception); 
+    }
+}
+    myRequest = getXMLHTTPRequest(); 
+    if(myRequest)
+    {         
+        myRequest.onreadystatechange = onReadyState;      
+        try 
+        {
+            myRequest.open( "post", "http://www.blogjava.net", true);
+        }
+        catch(exception)
+        {
+            var msg = document.getElementById("msg");
+            msg.value = exception;  
+         } 
+         myRequest.send("test");
+    }         
+}
+</script>
+</head>
+<body>
+	<input id="msg" type="text" />
+	<input type="button" value="信息" onclick="getServiceText()" />
+</body>
+</html>

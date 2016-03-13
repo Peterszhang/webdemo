@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="chapter17.entity.MyMessage" table="t_message" lazy="false"><!-- 映射类和名 -->
+		<id name="id" column="id" type="int" /><!-- 映射id属性和id字段 -->
+		<property name="name" column="name" /><!-- 映射name属性和name字段 -->
+		<filter name="myFilter" condition=":maxId > id" />
+	</class>
+	<class name="chapter19.entity.Keys" table="t_keys">
+		<composite-id name="primaryKey"
+			class="chapter19.entity.PrimaryKey"> 
+			<key-property name="key1" column="key1" />
+			<key-property name="key2" column="key2" />
+		</composite-id>
+		<property name="data" column="data" />
+	</class>
+	<filter-def name="myFilter" >
+		<filter-param name="maxId" type="integer" />
+	</filter-def>
+</hibernate-mapping>

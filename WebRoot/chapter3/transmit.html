@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>AJAX传输数据的三种方式</title>
+<script type="text/javascript">
+function getXMLHTTPRequest()
+{            
+    var myRequest = new ActiveXObject("Microsoft.XMLHTTP");     
+    return myRequest;          
+}        
+function transmitXML()
+{
+	var myRequest = getXMLHTTPRequest();			//  获得XMLHTTPRquest对象
+	if (myRequest) 
+	{
+    	myRequest.open("GET", "data.xml", false);		//  同步发送HTTP请求消息
+    	myRequest.send(null);
+    	var xml = myRequest.responseXML;// 获得XML对象    
+    	var select =  document.getElementById("opt");
+    	var html = "";
+    	html = "<select id='opt'><option>" + xml.childNodes[0].childNodes[0].text + "</option>";
+    	html += "<option>" + xml.childNodes[0].childNodes[1].text + "</option></select>";
+    	select.outerHTML = html;
+	}
+}          
+function transmitHTML()
+{
+
+	var myRequest = getXMLHTTPRequest();			//  获得XMLHTTPRquest对象
+	if (myRequest) 
+	{
+    	myRequest.open("GET", "data.html", false);		//  同步发送HTTP请求消息
+    	myRequest.send(null);
+    	var html = myRequest.responseText;// 获得HTML代码
+    	var select =  document.getElementById("opt");
+    	select.outerHTML = "<select id='opt'>" + html + "</option>";
+    	
+	}
+}
+function transmitJavaScript()
+{
+
+	var myRequest = getXMLHTTPRequest();			//  获得XMLHTTPRquest对象
+	if (myRequest) 
+	{
+    	myRequest.open("GET", "data.js", false);		//  同步发送HTTP请求消息
+    	myRequest.send(null);
+    	var javascript = myRequest.responseText;// 获得JavaScript代码
+    	var select =  document.getElementById("opt");
+    	eval(javascript);
+    	html = "<select id='opt'><option>" + aList[0] + "</option>";
+    	html += "<option>" + aList[1] + "</option></select>";
+    	select.outerHTML = html;    	
+	}
+}
+		</script>
+</head>
+
+<body>
+	<input type="button" value="XML方式" onclick="transmitXML()" />
+	&nbsp;&nbsp;
+	<input type="button" value="HTML方式" onclick="transmitHTML()" />
+	&nbsp;&nbsp;
+	<input type="button" value="JavaScript方式"
+		onclick="transmitJavaScript()" />
+	<select id="opt">
+	</select>
+</body>
+</html>

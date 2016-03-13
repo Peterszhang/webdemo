@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="chapter19.entity.ProductDetail" table="t_product_details">
+		<id name="id" column="id" type="int">
+			<generator class="foreign">
+				<param name="property">product</param>
+			</generator>
+		</id>
+		<property name="detail" column="detail" />
+		<one-to-one name="product" class="chapter19.entity.Product"
+			constrained="true" />
+	</class>
+</hibernate-mapping>

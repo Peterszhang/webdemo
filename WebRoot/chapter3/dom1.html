@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>dom</title>
+        <script type="text/javascript">
+            function showHead()
+            {
+                var oHtml = document.documentElement;  
+                var oHead = oHtml.firstChild;
+                alert(oHead.outerHTML);
+                alert(oHead.innerHTML);
+            }        
+            function showBody()
+            {
+                var oHtml = document.documentElement;  
+                var oBody = oHtml.childNodes[1];
+                alert(oBody.outerHTML);
+                alert(oBody.innerHTML);
+            }
+
+        </script>
+    </head>
+  
+   <body>
+      <input type="button" onclick="showHead()" value="显示head标签的内容" />
+       <p/>
+      <input type="button" onclick="showBody()" value="显示body标签的内容" />
+      <p/>
+
+  </body>
+</html>

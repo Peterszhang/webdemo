@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="myClass" class="chapter25.MyClass" />
+
+	<bean id="beforeAdvice" class="chapter25.BeforeAdvice" />
+	<bean id="afterAdvice" class="chapter25.AfterAdvice" />
+	<bean id="aroundAdvice" class="chapter25.AroundAdvice" />
+	<bean id="exceptionAdvice" class="chapter25.ExceptionAdvice" />
+	<bean id="pointcut" class="chapter25.Pointcut" />
+	<bean id="controlFlowAdvice" class="chapter25.ControlFlowAdvice" />
+
+	<bean id="myClassProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<list>
+				<value>chapter25.MyInterface</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>beforeAdvice</value>
+				<value>afterAdvice</value>
+				<value>aroundAdvice</value>
+				<value>exceptionAdvice</value>
+				<!-- <value>myAdvisor</value> <value>regexpAdvisor</value> <value>controlFlowAdvisor</value> 
+					<value>exceptionAdvice</value> -->
+			</list>
+		</property>
+		<property name="target">
+			<ref bean="myClass" />
+		</property>
+	</bean>
+
+	<bean id="myAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="pointcut">
+			<ref local="pointcut" />
+		</property>
+		<property name="advice">
+			<ref local="beforeAdvice" />
+		</property>
+	</bean>
+
+	<bean id="regexpAdvisor"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="patterns">
+			<list>
+				<value>chapter25.MyClass.getRandomInt</value>
+			</list>
+		</property>
+		<property name="advice">
+			<ref local="afterAdvice" />
+		</property>
+	</bean>
+
+	<bean id="controlFlowAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="pointcut">
+			<ref local="controlFlowPointcut" />
+		</property>
+		<property name="advice">
+			<ref local="controlFlowAdvice" />
+		</property>
+	</bean>
+
+
+	<bean id="controlFlowPointcut" class="org.springframework.aop.support.ControlFlowPointcut">
+		<constructor-arg index="0">
+			<value>chapter25.TestControlFlow</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>method</value>
+		</constructor-arg>
+	</bean>
+
+</beans>

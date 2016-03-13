@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="timeTask" class="chapter25.MyTimerTask" />
+	<bean id="scheduledTask"
+		class="org.springframework.scheduling.timer.ScheduledTimerTask">
+		<property name="timerTask">
+			<ref bean="timeTask" />
+		</property>
+		<property name="period">
+			<value>5000</value>
+		</property>
+		<property name="delay">
+			<value>3000</value>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.scheduling.timer.TimerFactoryBean">
+		<property name="scheduledTimerTasks">
+			<list>
+				<ref bean="scheduledTask" />
+			</list>
+		</property>
+
+	</bean>
+</beans>

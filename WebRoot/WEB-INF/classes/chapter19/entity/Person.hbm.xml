@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="chapter19.entity.Person" table="t_persons">
+		<id name="id" column="id" type="int"/>	
+		<property name="birthday" column="birthday" type="date"/>
+		<component name="name" class="chapter19.entity.Name" >
+			<property name="first" column="first"/>
+			<property name="last" column="last"  />
+		</component>
+	</class>
+</hibernate-mapping>

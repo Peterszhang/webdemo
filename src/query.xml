@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<query name="myhql">
+		<![CDATA[
+select name from MyMessage where name = :name]]>
+	</query>
+	
+	<sql-query name="mysql">
+		<![CDATA[
+select name from t_message where name = :name]]>
+	</sql-query>	
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<!--  配置用于效验username字段的fieldexpression效验规则  -->
+	<field name="username">
+		<field-validator type="fieldexpression" >
+			<param name="expression"><![CDATA[username !="system"]]></param>
+			<message>
+				用户名不能是system
+			</message>
+		</field-validator>
+	</field>
+	<!--  配置用于效验username字段的reqiredstring效验规则  -->
+	<validator type="requiredstring" short-circuit="false" >
+		<param name="fieldName">username</param>
+		<message>必须输入用户名</message>
+	</validator>
+
+ 
+</validators>

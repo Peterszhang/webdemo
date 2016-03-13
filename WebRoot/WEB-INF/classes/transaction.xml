@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref bean="myDatasource" />
+		</property>
+	</bean>
+
+	<bean id="transactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+	</bean>
+
+
+	<!--  声明式事务 -->
+
+
+	<bean id="messageTarget" class="chapter25.MessageImpl">
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
+	</bean>
+
+	<!--  <bean id="attributeSource"
+		class="org.springframework.transaction.interceptor.MatchAlwaysTransactionAttributeSource" />-->
+
+	<bean id="attributeSource"
+		class="org.springframework.transaction.interceptor.MatchAlwaysTransactionAttributeSource">
+		<property name="transactionAttribute">
+			<ref bean="newTransactionAttribute" />
+		</property>
+	</bean>
+
+	<!-- 设置特定方法的事务属性 -->
+	<bean id="methodAttributeSource"
+		class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+		<property name="properties">
+			<props>
+				<prop key="process">
+					PROPAGATION_REQUIRES_NEW,ISOLATION_REPEATABLE_READ,<!-- readOnly -->+ArithmeticException
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="newTransactionAttribute"
+		class="org.springframework.transaction.interceptor.DefaultTransactionAttribute">
+		<property name="propagationBehaviorName"><!-- 传遍行为 -->
+			<value>PROPAGATION_REQUIRES_NEW</value>
+		</property>
+		<property name="isolationLevelName"><!-- 隔离级别 -->
+			<value>ISOLATION_REPEATABLE_READ</value>
+		</property>
+		<property name="readOnly"><!-- 只读 -->
+			<value>false</value>
+		</property>
+		<property name="timeout"><!-- 事务超时 -->
+			<value>5</value>
+		</property>
+	</bean>
+
+	<bean id="message"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<list>
+				<value>chapter25.Message</value>
+			</list>
+		</property>
+		<property name="target">
+			<ref bean="messageTarget" />
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="transactionAttributeSource">
+			<ref bean="attributeSource" />
+		</property>
+	</bean>
+</beans>

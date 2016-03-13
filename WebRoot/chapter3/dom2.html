@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>dom</title>
+<script type="text/javascript">
+            function fromId()
+            {
+                var oText = document.getElementById("my_text");
+                oText.value = "–°≥¨»À";
+                alert(oText.value);
+            }
+            function fromName()
+            {
+                var oTexts = document.getElementsByName("text");
+                for(var i = 0; i < oTexts.length; i++)
+                    oTexts[i].value = i;
+            }
+            function fromTagName()
+            {
+                var oInputs = document.getElementsByTagName("input");
+                for(var i = 0; i < oInputs.length; i++)
+                    alert(oInputs[i].type);
+            }
+        </script>
+    </head>
+  
+   <body>
+
+      <input type="button" onclick="fromId()" value="getElementById" />      
+      <input type="text" id = "my_text"/>
+      
+      <p/>
+      <input type="button" onclick="fromName()" value="getElementsByName" />
+       <p/>
+      <input type="text" id = "text"/> <p/>
+      <input type="text" id = "text"/> <p/>
+      <input type="text" id = "text"/> <p/>
+      <input type="text" id = "text"/> <p/>
+      <input type="text" id = "text"/> <p/>
+      
+      
+      <p/>
+      <input type="button" onclick="fromTagName()" value="getElementsByTagName" />
+      
+  </body>
+</html>

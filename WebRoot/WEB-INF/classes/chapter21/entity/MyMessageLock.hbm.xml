@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="chapter21.entity.MyMessageLock" table="t_messagelock"
+		optimistic-lock="version">
+		<id name="id" column="id" type="int" />
+		<version column="version" name="version" type="integer" />
+		<property name="name" column="name" />
+	</class>
+</hibernate-mapping>

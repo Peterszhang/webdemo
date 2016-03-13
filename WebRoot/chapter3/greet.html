@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Greet</title>
+<!--  开始编写JavaScript代码  -->
+<script type="text/javascript">
+	//  由按钮单击事件调用的函数
+	function greet() {
+		var name = document.getElementById("name");
+		//  得到【name】文本框
+		//  如果找到【name】文本框
+		if (name)
+			alert("Hello " + name.value); //  显示对话框
+	}
+</script>
+<!--  
+<script type="text/javascript" src="greet.js">	
+</script>
+-->
+</head>
+
+<body>
+	<input type="text" id="name" />
+	<input type="button" value="Greet" onclick="greet()" />
+</body>
+</html>

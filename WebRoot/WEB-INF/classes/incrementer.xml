@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="incrementer"
+		class="org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer">
+		<property name="incrementerName" value="t_incrementer" />
+		<property name="columnName" value="id" />
+		<property name="cacheSize" value="10" />
+		<property name="dataSource" ref="myDatasource1" />
+	</bean>
+</beans>

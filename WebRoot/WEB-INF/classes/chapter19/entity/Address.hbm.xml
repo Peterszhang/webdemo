@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="chapter19.entity.Address" table="t_addresses">
+		<id name="id" column="id" type="int">
+			<generator class="increment" />
+		</id> 
+		<property name="address" column="address" />
+		<one-to-one name="employee" class="chapter19.entity.Employee"
+			property-ref="address" />
+	</class>
+</hibernate-mapping>

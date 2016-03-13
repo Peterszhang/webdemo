@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>dom</title>
+        <script type="text/javascript">
+            function showHead()
+            {
+                var oHtml = document.documentElement;  
+                var oHead = oHtml.firstChild;
+                alert(oHead.outerHTML);
+                alert(oHead.innerHTML);
+            }        
+            function showBody()
+            {
+                var oHtml = document.documentElement;  
+                var oBody = oHtml.childNodes[1];
+                alert(oBody.outerHTML);
+                alert(oBody.innerHTML);
+            }
+            function fromId()
+            {
+                var oText = document.getElementById("my_text");
+                oText.value = "小超人";
+                alert(oText.value);
+            }
+            function fromName()
+            {
+                var oTexts = document.getElementsByName("text");
+                for(var i = 0; i < oTexts.length; i++)
+                    oTexts[i].value = i;
+            }
+            function fromTagName()
+            {
+                var oInputs = document.getElementsByTagName("input");
+                for(var i = 0; i < oInputs.length; i++)
+                    alert(oInputs[i].type);
+            }
+        </script>
+    </head>
+  
+   <body>
+      <input type="button" onclick="showHead()" value="显示head标签的内容" />
+       <p/>
+      <input type="button" onclick="showBody()" value="显示body标签的内容" />
+      <p/>
+      <input type="button" onclick="fromId()" value="getElementById" />      
+      <input type="text" id = "my_text"/>
+      
+      <p/>
+      <input type="button" onclick="fromName()" value="getElementsByName" />
+       <p/>
+      <input type="text" id = "text"/> <p/>
+      <input type="text" id = "text"/> <p/>
+      <input type="text" id = "text"/> <p/>
+      <input type="text" id = "text"/> <p/>
+      <input type="text" id = "text"/> <p/>
+      
+      
+      <p/>
+      <input type="button" onclick="fromTagName()" value="getElementsByTagName" />
+      
+  </body>
+</html>

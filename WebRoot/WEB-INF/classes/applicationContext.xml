@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" >
+		<property name="configLocation"
+			value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+
+	<bean id="sessionFactory1"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="show_sql">true</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.provider_class">
+					org.hibernate.cache.HashtableCacheProvider
+				</prop>
+				<prop key="hibernate.connection.username">root</prop>
+				<prop key="hibernate.connection.password">1234</prop>
+				<prop key="hibernate.connection.driver_class">
+					com.mysql.jdbc.Driver
+				</prop>
+				<prop key="hibernate.connection.url">
+					jdbc:mysql://localhost/webdb?characterEncoding=UTF8
+
+				</prop>
+
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>mapping.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="greeting" class="chapter22.HelloServiceImpl">
+		<property name="greeting">
+			<value>Michael Jackson</value>
+		</property>
+	</bean>
+	<bean id="myBean" class="chapter23.MyBean" name="bean">
+		<property name="hello">
+			<ref bean="greeting" />
+		</property>
+		<property name="name">
+			<idref bean="greeting" />
+		</property>
+	</bean>
+
+	<bean id="collectionBean" class="chapter23.CollectionBean">
+		<property name="myList">
+			<list>
+				<value>abcd</value>
+				<idref bean="myBean" />
+			</list>
+		</property>
+		<property name="myArray">
+			<list>
+				<value>myArray</value>
+				<idref bean="greeting" />
+			</list>
+		</property>
+		<property name="mySet">
+			<set>
+				<value>test</value>
+				<ref bean="myBean" />
+			</set>
+		</property>
+		<property name="myMap">
+			<map>
+				<entry>
+					<key>
+						<value>hello</value>
+					</key>
+					<value>1234</value>
+
+				</entry>
+				<entry key="abcd">
+					<ref bean="greeting" />
+				</entry>
+				<entry>
+					<key>
+						<ref bean="greeting" />
+					</key>
+					<ref bean="myBean" />
+				</entry>
+			</map>
+		</property>
+		<property name="myProperties">
+			<props>
+				<prop key="abcd">value1</prop>
+				<prop key="prop">myProp</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="autowireBean" class="chapter23.AutowireBean"
+		autowire="byName">
+	</bean>
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>src\MyBean.properties</value>
+		</property>
+
+	</bean>
+
+	<bean id="newMyBean" class="chapter23.MyBean">
+		<property name="name">
+			<value>${MyBean.name}</value>
+		</property>
+		<property name="value">
+			<value>${MyBean.value}</value>
+		</property>
+	</bean>
+
+</beans>

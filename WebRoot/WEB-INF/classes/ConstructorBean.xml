@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="constructor1" class="chapter23.ConstructorBean">
+		<constructor-arg>
+			<value>Michael</value>
+		</constructor-arg>
+	</bean>
+	<bean id="constructor2" class="chapter23.ConstructorBean">
+		<constructor-arg>
+			<value>bill</value>
+		</constructor-arg>
+		<constructor-arg type="int">
+			<value>20</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="constructor3" class="chapter23.ConstructorBean">
+		<constructor-arg index="1" >
+			<value>bike</value>
+		</constructor-arg>
+		<constructor-arg index="0">
+			<value>John</value>
+		</constructor-arg>
+	</bean>
+</beans>

@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--  指定Struts 2配置文件的DTD信息  -->
+<!DOCTYPE struts PUBLIC
+      "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+      "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!--  <constant name="struts.custom.i18n.resources" value="error" /> -->
+	<constant name="struts.custom.i18n.resources"
+		value="globalResource" />
+	<package name="struts2" extends="struts-default">
+		<interceptors>
+			<interceptor name="executeTime"
+				class="chapter9.ExecuteTimeInterceptor">
+				<param name="name">执行时间</param>
+			</interceptor>
+			<interceptor name="authorization"
+				class="chapter9.AuthorizationInterceptor" />
+			<interceptor-stack name="customStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="executeTime" />
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+			<result name="login">/chapter8/login.jsp</result>
+		</global-results>
+		<action name="query" class="chapter7.action.QueryAction">
+
+			<result name="success">/chapter7/result.jsp</result>
+			<result name="error">/error.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="authorization" />
+		</action>
+
+		<action name="login" class="chapter8.action.LoginAction">
+			<result name="success">/chapter8/success.jsp</result>
+			<result name="error">/chapter8/error.jsp</result>
+		</action>
+		<action name="loginaware"
+			class="chapter8.action.LoginAwareAction">
+			<result name="success">/chapter8/success.jsp</result>
+			<result name="error">/chapter8/error.jsp</result>
+
+		</action>
+		<action name="loginregister"
+			class="chapter8.action.LoginRegisterAction">
+			<result name="register">/chapter8/register.jsp</result>
+			<result name="success">/chapter8/success.jsp</result>
+			<result name="error">/chapter8/error.jsp</result>
+		</action>
+		<action name="mylogin"
+			class="chapter8.action.LoginRegisterAction" method="login">
+			<result name="success">/chapter8/success.jsp</result>
+			<result name="error">/chapter8/error.jsp</result>
+		</action>
+		<action name="myregister"
+			class="chapter8.action.LoginRegisterAction" method="register">
+			<result name="register">/chapter8/register.jsp</result>
+		</action>
+
+		<action name="*Action"
+			class="chapter8.action.wildcard.LoginRegisterAction" method="{1}">
+			<result name="success">/chapter8/success.jsp</result>
+			<result name="error">/chapter8/error.jsp</result>
+		</action>
+		<action name="forwardAction"
+			class="chapter8.action.ForwardAction">
+			<result name="success">/WEB-INF/${forward}.jsp</result>
+
+		</action>
+
+		<action name="model_login"
+			class="chapter8.modeldriven.LoginAction">
+
+			<result name="success">/WEB-INF/result.jsp</result>
+			<result name="error">/WEB-INF/error.jsp</result>
+			<interceptor-ref name="customStack">
+				<!--  指定executeTime的name参数值  -->
+				<param name="executeTime.name">计算执行时间的拦截器</param>
+				<!--  指定executeTime的excludeMethods参数值  -->
+				<param name="executeTime.excludeMethods">execute</param>
+				<param name="executeTime.includeMethods">execute</param>
+			</interceptor-ref>
+
+			<!--  配置默认拦截器栈  -->
+			<interceptor-ref name="defaultStack" />
+			<!--  下面引用了两次executeTime  -->
+			<!--  <interceptor-ref name="executeTime">
+				<param name="name">第一次引用</param>
+				</interceptor-ref>
+				<interceptor-ref name="executeTime">
+				<param name="name">第二次引用</param>
+				</interceptor-ref>
+			-->
+		</action>
+
+		<action name="exception_login"
+			class="chapter8.exception.LoginAction">
+			<exception-mapping result="exception"
+				exception="chapter8.exception.UserException" />
+			<exception-mapping result="exception"
+				exception="java.sql.SQLException" />
+			<result name="exception">/WEB-INF/exception.jsp</result>
+			<result name="success">/WEB-INF/result.jsp</result>
+			<result name="error">/WEB-INF/error.jsp</result>
+
+		</action>
+
+		<action name="type_conversion"
+			class="chapter10.action.TypeConversionAction">
+			<result name="success">/chapter10/conversion.jsp</result>
+		</action>
+
+		<action name="product" class="chapter10.action.ProductAction">
+			<result name="input">/chapter10/product.jsp</result>
+			<result name="success">/chapter10/productview.jsp</result>
+		</action>
+		<action name="products"
+			class="chapter10.action.ProductsAction">
+			<result name="input">/chapter10/products.jsp</result>
+			<result name="success">/chapter10/productsview.jsp</result>
+		</action>
+
+		<action name="products_ognl"
+			class="chapter10.action.ognl.ProductsAction">
+
+			<result name="success">
+				/chapter10/productsview_ognl.jsp
+			</result>
+		</action>
+		<action name="*">
+			<result name="success">/WEB-INF/{1}.jsp</result>
+		</action>
+
+	</package>
+	<package name="parentns">
+		<action name="parent" class="chapter8.parentns.ParentAction" />
+	</package>
+
+	<package name="chapter11" namespace="/chapter11"
+		extends="struts-default">
+		<action name="register"
+			class="chapter11.action.RegisterAction">
+			<result name="success">/chapter11/success.jsp</result>
+			<!--  <result name="input">/chapter11/register_struts2.jsp</result> -->
+			<result name="input">/chapter11/input.jsp</result>
+		</action>
+		<action name="register_method"
+			class="chapter11.action.RegisterAction" method="register">
+			<result name="success">/chapter11/success.jsp</result>
+			<!--  <result name="input">/chapter11/register_struts2.jsp</result> -->
+			<result name="input">/chapter11/input.jsp</result>
+		</action>
+		<action name="register_visitor"
+			class="chapter11.visitor.action.RegisterAction">
+			<result name="success">/chapter11/success.jsp</result>
+			<result name="input">/chapter11/input.jsp</result>
+		</action>
+
+	</package>
+
+	<package name="chapter12" namespace="/chapter12"
+		extends="struts-default">
+		<action name="UploadAction"
+			class="chapter12.action.UploadAction">
+			<result name="result">/chapter12/result.jsp</result>
+			<result name="input">/chapter12/uploadstruts.jsp</result>
+			<interceptor-ref name="defaultStack">
+				<param name="fileUpload.allowedTypes">
+					image/jpeg,image/gif,image/pjpeg
+				</param>
+				<param name="fileUpload.maximumSize">4096</param>
+			</interceptor-ref>
+			<param name="uploadPath">D:\upload\</param>
+			<param name="allowTypes">
+				image/jpeg,image/gif,image/pjpeg
+			</param>
+		</action>
+		<action name="UploadMoreAction"
+			class="chapter12.action.array.UploadMoreAction">
+			<result name="result">/chapter12/result.jsp</result>
+			<result name="input">
+				/chapter12/uploadmorestruts.jsp
+			</result>
+			<interceptor-ref name="defaultStack">
+				<param name="fileUpload.allowedTypes">
+					image/jpeg,image/gif,image/pjpeg
+				</param>
+				<param name="fileUpload.maximumSize">1000000</param>
+			</interceptor-ref>
+			<param name="uploadPath">D:\upload\</param>
+		</action>
+
+		<action name="DownloadAction"
+			class="chapter12.action.DownloadAction">
+			<param name="inputPath">/images/图像.gif</param>
+			<result name="success" type="stream">
+				<param name="contentType">image/gif</param>
+				<param name="inputName">targetInputStream</param>
+				<param name="contentDisposition">
+					filename="abc.gif"
+				</param>
+				<param name="bufferSize">100000</param>
+			</result>
+
+		</action>
+
+		<action name="AuthorizationDownloadAction"
+			class="chapter12.action.AuthorizationDownloadAction">
+			<param name="inputPath">/images/我的图像.jpg</param>
+			<result name="login">/chapter8/login.jsp</result>
+			<result name="success" type="stream">
+				<param name="contentType">image/gif</param>
+				<param name="inputName">targetInputStream</param>
+				<param name="contentDisposition">
+					filename="abc.gif"
+				</param>
+				<param name="bufferSize">100000</param>
+			</result>
+
+		</action>
+	</package>
+	<package name="chapter13" namespace="/chapter13"
+		extends="struts-default">
+		<action name="register"
+			class="chapter13.action.RegisterAction">
+			<result name="success">/chapter13/success.jsp</result>
+			<result name="error">/chapter13/error.jsp</result>
+		</action>
+		<action name="*_jsp">
+			<result>/chapter13/i18n/{1}.jsp</result>
+		</action>
+	</package>
+
+	<package name="chapter14" namespace="/chapter14"
+		extends="struts-default">
+		<interceptors>
+			<interceptor-stack name="newStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="token" />
+			</interceptor-stack>
+		</interceptors>
+		<!--  <default-interceptor-ref name="newStack" />-->
+		<action name="valuestack"
+			class="chapter14.action.ValueStackAction">
+			<result name="success">/chapter14/success.jsp</result>
+		</action>
+		<action name="iterator"
+			class="chapter14.action.IteratorAction">
+			<result name="success">/chapter14/iterator.jsp</result>
+		</action>
+		<action name="generator"
+			class="chapter14.action.GeneratorAction">
+			<result name="success">/chapter14/generator.jsp</result>
+		</action>
+		<action name="my" class="chapter14.action.MyAction">
+			<result name="success">/chapter14/succ.jsp</result>
+		</action>
+		<action name="investigate"
+			class="chapter14.action.InvestigateAction">
+			<result name="success">/chapter14/investigate.jsp</result>
+		</action>
+		<action name="errors" class="chapter14.action.ErrorsAction">
+			<result name="success">/chapter14/errors.jsp</result>
+
+		</action>
+
+	</package>
+	<package name="chapter15" namespace="/chapter15"
+		extends="json-default">
+		<action name="register"
+			class="chapter15.action.RegisterAction">
+			<result name="success">/chapter15/success.jsp</result>
+			<result name="input">/chapter15/input.jsp</result>
+		</action>
+		<action name="ajaxAction" class="chapter15.action.AjaxAction">
+			<result name="success">/chapter15/ajaxSuccess.jsp</result>
+		</action>
+		<action name="jsAction" class="chapter15.action.AjaxAction">
+			<result name="success">/chapter15/jsSuccess.jsp</result>
+		</action>
+		<action name="pubsub">
+			<result>/chapter15/pubsub_success.jsp</result>
+		</action>
+		<action name="random">
+			<result>/chapter15/random.jsp</result>
+		</action>
+		<action name="javascript">
+			<result>/chapter15/javascript.jsp</result>
+		</action>
+		<action name="city">
+			<result>/chapter15/city.jsp</result>
+		</action>
+		<action name="books">
+			<result>/chapter15/books.jsp</result>
+		</action>
+		<action name="provinces" class="chapter15.action.CityAction"
+			method="provinces">
+			<result>/chapter15/provinces.jsp</result>
+		</action>
+		<action name="cities" class="chapter15.action.CityAction"
+			method="cities">
+			<result>/chapter15/cities.jsp</result>
+		</action>
+
+		<action name="MyJSON" class="chapter15.action.MyJSON">
+			<result type="json" />
+		</action>
+	</package>
+
+	<package name="chapter16" namespace="/chapter16"
+		extends="struts-default">
+		<interceptors>
+			<interceptor name="authorization"
+				class="chapter16.interceptor.AuthorizationInterceptor" />
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="authorization">
+					<param name="ignoreActions">
+						validate_code,register,login
+					</param>
+				</interceptor-ref>
+
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack" />
+		<global-results>
+			<result name="login">/chapter16/login.jsp</result>
+		</global-results>
+
+		<action name="validate_code"
+			class="chapter16.action.ValidationCodeAction" />
+		<action name="login" class="chapter16.action.LoginAction">
+			<result name="success" type="redirectAction">main</result>
+			<result name="input">/chapter16/login.jsp</result>
+		</action>
+		<action name="register"
+			class="chapter16.action.RegisterAction">
+			<result name="success">register.jsp</result>
+			<result name="input">register.jsp</result>
+		</action>
+		<action name="*">
+			<result>/WEB-INF/chapter16/{1}.jsp</result>
+		</action>
+	</package>
+
+	<package name="chapter17" namespace="/chapter17"
+		extends="struts-default">
+		<action name="firsthibernate"
+			class="chapter17.action.FirstHibernateAction">
+			<result name="success">
+				/chapter17/firsthibernate.jsp
+			</result>
+			<result name="input">/chapter17/firsthibernate.jsp</result>
+		</action>
+	</package>
+	<package name="chapter19" namespace="/chapter19"
+		extends="struts-default">
+		<action name="pk" class="chapter19.action.PKAction">
+			<result name="success">/chapter19/success.jsp</result>
+		</action>
+	</package>
+	<package name="chapter20" namespace="/chapter20"
+		extends="struts-default">
+		<action name="pagination" class="chapter20.action.PaginationAction">
+			<result name="success">/chapter20/pagination.jsp</result>
+			<param name="entity">chapter17.entity.MyMessage</param>
+			<param name="fields">id,name</param>
+			<param name="rows">4</param> 
+		</action>
+		<action name="hqlpagination" class="chapter20.action.HQLPaginationAction">
+			<result name="success">/chapter20/pagination.jsp</result>
+			<param name="entity">chapter17.entity.MyMessage</param>
+			<param name="fields">id,name</param>
+			<param name="rows">3</param> 
+		</action>		
+	</package>
+</struts>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="customerEditor"
+		class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="chapter23.PhoneNumber">
+					<bean id="phoneEditor" class="chapter23.PhoneEditor" />
+				</entry>
+
+
+			</map>
+		</property>
+	</bean>
+	<bean id="contact" class="chapter23.Contact">
+		<property name="phoneNumber1">
+			<list>
+				<value>+86</value>
+				<value>024</value>
+				<value>12345678</value>
+				<value>4028</value>
+			</list>
+		</property>
+		<property name="phoneNumber2">
+			<value>87654321</value>
+		</property>
+	</bean>
+</beans>

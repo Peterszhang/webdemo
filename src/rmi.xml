@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="messageService" class="chapter25.rmi.MessageServiceImpl" />
+
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service">
+			<ref bean="messageService" />
+		</property>
+		<property name="serviceName">
+			<value>MessageService</value> 
+		</property>
+		<property name="serviceInterface">
+			<value>chapter25.rmi.MessageService</value>
+		</property>
+	</bean>
+
+	
+</beans>

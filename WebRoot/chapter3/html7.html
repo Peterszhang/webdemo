@@ -1,0 +1,18 @@
+<!--  html7.html  -->
+<HTML>
+	<HEAD>
+		<TITLE>框架</TITLE>
+	</HEAD>
+
+	<frameset col =”25%,*”>		<!--  定义一个带有两列的框架  -->
+		<!--设置左框架的内容-->
+		<frame src=”left.html” scrolling=”no” name=”left”>	
+		<!--设置右框架的内容-->
+		<frame src=”page1.html” scrolling=”auto” name=”Main”>	
+		<noframes>				<!--  浏览器不支持框架显示的内容  -->
+			<BODY >
+				<p> 你的浏览器不支持框架!</p>
+			</BODY>
+		</noframes>
+	</frameset>
+</HTML>
